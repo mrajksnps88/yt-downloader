@@ -165,7 +165,77 @@ body {
   font-weight: 400;
 }
 
-/* ===== SEARCH CARD ===== */
+/* ===== PLATFORM TABS ===== */
+.platform-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.platform-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.platform-tab:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.platform-tab.active[id="tab-youtube"] {
+  border-color: #ff4444;
+  background: rgba(255, 68, 68, 0.12);
+  color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.15);
+}
+
+.platform-tab.active[id="tab-instagram"] {
+  border-color: #e1306c;
+  background: rgba(225, 48, 108, 0.12);
+  color: #f77737;
+  box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.15);
+}
+
+/* Instagram active — animated gradient border */
+body.instagram-mode .search-box:focus-within {
+  border-color: #e1306c;
+  box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.2);
+}
+
+body.instagram-mode .fetch-btn {
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+body.instagram-mode .download-btn {
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+body.instagram-mode .orb-1 {
+  background: radial-gradient(circle, #e1306c, #833ab4);
+}
+
+body.instagram-mode .orb-2 {
+  background: radial-gradient(circle, #f77737, #e1306c);
+}
+
+body.instagram-mode .orb-3 {
+  background: radial-gradient(circle, #833ab4, #5851db);
+}
+
+/* ===== SEARCH BOX ===== */
 .search-card {
   padding: 28px;
   margin-bottom: 20px;
