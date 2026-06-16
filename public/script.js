@@ -229,3 +229,91 @@ function downloadVideo() {
     updateDownloadBtn(selectedLabel || 'Video');
   }, 3000);
 }
+
+// ── Fun Zone: Tic-Tac-Toe ─────────────────────────────────────────────────────
+let boardState = ['', '', '', '', '', '', '', '', ''];
+let gameActive = true;
+const PLAYER_X = 'X';
+const PLAYER_O = 'O'; // AI
+const WIN_CONDITIONS = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], // cols
+  [0, 4, 8], [2, 4, 6]             // diagonals
+];
+
+const cells = document.querySelectorAll('.ttt-cell');
+const statusDisplay = document.getElementById('game-status');
+
+function handleCellClick(e) {
+  const cell = e.target;
+  const index = parseInt(cell.getAttribute('data-index'));
+
+  if (boardState[index] !== '' || !gameActive) return;
+
+  // Player move
+  makeMove(index, PLAYER_X);
+  
+  if (checkWin(PLAYER_X)) {
+    endGame(`You won! 🎉`, PLAYER_X);
+    return;
+  }
+  
+  if (boardState.every(cell => cell !== '')) {
+    endGame('It\'s a draw! 🤝', null);
+    return;
+  }
+
+  // AI move
+  statusDisplay.textContent = 'AI is thinking... 🤔';
+  gameActive = false; // block clicks
+  
+  setTimeout(() => {
+    const emptyIndices = boardState.map((val, idx) => val === '' ? idx : null).filter(val => val !== null);
+    if (emptyIndices.length > 0) {
+      const randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+      makeMove(randomIndex, PLAYER_O);
+      
+      if (checkWin(PLAYER_O)) {
+        endGame(`AI won! 🤖`, PLAYER_O);
+      } else if (boardState.every(cell => cell !== '')) {
+        endGame('It\'s a draw! 🤝', null);
+      } else {
+        gameActive = true;
+        statusDisplay.textContent = 'Your turn! (You are X)';
+      }
+    }
+  }, 600);
+}
+
+function makeMove(index, player) {
+  boardState[index] = player;
+  cells[index].textContent = player;
+  cells[index].classList.add(player.toLowerCase());
+}
+
+function checkWin(player) {
+  return WIN_CONDITIONS.some(condition => {
+    const win = condition.every(index => boardState[index] === player);
+    if (win) {
+      condition.forEach(index => cells[index].classList.add('win-cell'));
+    }
+    return win;
+  });
+}
+
+function endGame(message, winner) {
+  gameActive = false;
+  statusDisplay.textContent = message;
+}
+
+function resetGame() {
+  boardState = ['', '', '', '', '', '', '', '', ''];
+  gameActive = true;
+  statusDisplay.textContent = 'Your turn! (You are X)';
+  cells.forEach(cell => {
+    cell.textContent = '';
+    cell.classList.remove('x', 'o', 'win-cell');
+  });
+}
+
+cells.forEach(cell => cell.addEventListener('click', handleCellClick));
