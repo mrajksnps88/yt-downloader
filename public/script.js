@@ -16,12 +16,16 @@ const PRESETS = {
   instagram: [
     { label: 'Best Quality', selector: 'best[ext=mp4]/best' },
   ],
+  tiktok: [
+    { label: 'Best Quality', selector: 'best[ext=mp4]/best' },
+  ],
 };
 
 // ── Placeholders ─────────────────────────────────────────────────────────────
 const PLACEHOLDERS = {
   youtube:   'https://www.youtube.com/watch?v=...',
   instagram: 'https://www.instagram.com/reel/...',
+  tiktok:    'https://www.tiktok.com/@.../video/...',
 };
 
 // ── DOM refs ─────────────────────────────────────────────────────────────────
@@ -40,9 +44,13 @@ function switchPlatform(platform) {
   // Update tabs
   document.getElementById('tab-youtube').classList.toggle('active', platform === 'youtube');
   document.getElementById('tab-instagram').classList.toggle('active', platform === 'instagram');
+  document.getElementById('tab-tiktok').classList.toggle('active', platform === 'tiktok');
 
   // Update body class for CSS theming
-  document.body.classList.toggle('instagram-mode', platform === 'instagram');
+  document.body.classList.remove('instagram-mode', 'tiktok-mode');
+  if (platform !== 'youtube') {
+    document.body.classList.add(`${platform}-mode`);
+  }
 
   // Update placeholder
   urlInput.placeholder = PLACEHOLDERS[platform];
@@ -57,6 +65,7 @@ function switchPlatform(platform) {
 // Auto-detect platform from pasted URL
 function detectPlatform(url) {
   if (url.includes('instagram.com')) return 'instagram';
+  if (url.includes('tiktok.com')) return 'tiktok';
   if (url.includes('youtube.com') || url.includes('youtu.be')) return 'youtube';
   return null;
 }
@@ -79,7 +88,7 @@ urlInput.addEventListener('focus', async () => {
   if (urlInput.value.trim()) return;
   try {
     const text = await navigator.clipboard.readText();
-    if (text && (text.includes('youtube.com') || text.includes('youtu.be') || text.includes('instagram.com'))) {
+    if (text && (text.includes('youtube.com') || text.includes('youtu.be') || text.includes('instagram.com') || text.includes('tiktok.com'))) {
       urlInput.value = text;
       const detected = detectPlatform(text);
       if (detected && detected !== currentPlatform) switchPlatform(detected);
@@ -108,7 +117,10 @@ function hideError() {
 async function fetchVideoInfo() {
   const url = urlInput.value.trim();
   if (!url) {
-    showError(`Please paste a ${currentPlatform === 'instagram' ? 'Instagram' : 'YouTube'} video URL first.`);
+    let platformName = 'YouTube';
+    if (currentPlatform === 'instagram') platformName = 'Instagram';
+    if (currentPlatform === 'tiktok') platformName = 'TikTok';
+    showError(`Please paste a ${platformName} video URL first.`);
     return;
   }
 

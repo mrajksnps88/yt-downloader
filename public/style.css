@@ -209,6 +209,13 @@ body {
   box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.15);
 }
 
+.platform-tab.active[id="tab-tiktok"] {
+  border-color: #00f2fe;
+  background: rgba(0, 242, 254, 0.12);
+  color: #fe0979;
+  box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.15);
+}
+
 /* Instagram active — animated gradient border */
 body.instagram-mode .search-box:focus-within {
   border-color: #e1306c;
@@ -233,6 +240,32 @@ body.instagram-mode .orb-2 {
 
 body.instagram-mode .orb-3 {
   background: radial-gradient(circle, #833ab4, #5851db);
+}
+
+/* TikTok active — animated gradient border */
+body.tiktok-mode .search-box:focus-within {
+  border-color: #00f2fe;
+  box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.2);
+}
+
+body.tiktok-mode .fetch-btn {
+  background: linear-gradient(135deg, #00f2fe, #fe0979);
+}
+
+body.tiktok-mode .download-btn {
+  background: linear-gradient(135deg, #00f2fe, #fe0979);
+}
+
+body.tiktok-mode .orb-1 {
+  background: radial-gradient(circle, #00f2fe, #000000);
+}
+
+body.tiktok-mode .orb-2 {
+  background: radial-gradient(circle, #fe0979, #00f2fe);
+}
+
+body.tiktok-mode .orb-3 {
+  background: radial-gradient(circle, #000000, #fe0979);
 }
 
 /* ===== SEARCH BOX ===== */
