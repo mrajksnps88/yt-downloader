@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YT Downloader — Download YouTube Videos Free</title>
+  <meta name="description" content="Download YouTube videos in HD for free. Paste a YouTube link, choose your quality, and download instantly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Animated background orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="logo-text">YT<span class="logo-accent">Downloader</span></span>
+      </div>
+      <p class="tagline">Download any YouTube video in seconds</p>
+    </header>
+
+    <!-- Search Card -->
+    <div class="search-card glass-card">
+      <div class="search-label">Paste your YouTube link below</div>
+      <div class="search-box">
+        <div class="search-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="url-input"
+          class="url-input"
+          placeholder="https://www.youtube.com/watch?v=..."
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button id="fetch-btn" class="fetch-btn" onclick="fetchVideoInfo()">
+          <span class="btn-text">Fetch</span>
+          <span class="btn-loader hidden">
+            <svg class="spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4" stroke-dashoffset="10"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Error Banner -->
+    <div id="error-banner" class="error-banner hidden">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span id="error-message">Something went wrong.</span>
+    </div>
+
+    <!-- Video Info Card -->
+    <div id="video-card" class="video-card glass-card hidden">
+      <div class="video-preview">
+        <div class="thumbnail-wrapper">
+          <img id="video-thumbnail" src="" alt="Video thumbnail" class="thumbnail" />
+          <div class="thumbnail-overlay">
+            <div class="play-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-meta">
+          <h1 id="video-title" class="video-title"></h1>
+          <div class="video-details">
+            <span class="meta-item" id="video-author">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/>
+              </svg>
+              <span id="author-text"></span>
+            </span>
+            <span class="meta-item" id="video-duration-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+              </svg>
+              <span id="duration-text"></span>
+            </span>
+            <span class="meta-item" id="video-views-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+              <span id="views-text"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Options -->
+      <div class="download-section">
+        <div class="quality-label">Select Quality</div>
+        <div id="quality-grid" class="quality-grid">
+          <!-- Quality options populated by JS -->
+        </div>
+        <button id="download-btn" class="download-btn" onclick="downloadVideo()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+          </svg>
+          <span id="download-btn-text">Download Video</span>
+        </button>
+        <p class="download-note">Your download will begin automatically in your browser.</p>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-grid">
+      <div class="feature-card glass-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Lightning Fast</div>
+        <div class="feature-desc">Download videos at full speed with no throttling</div>
+      </div>
+      <div class="feature-card glass-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Multiple Qualities</div>
+        <div class="feature-desc">Choose from 360p up to 1080p HD</div>
+      </div>
+      <div class="feature-card glass-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">No Sign-up</div>
+        <div class="feature-desc">100% free, no account needed</div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>Built with ❤️ using Node.js & Express &nbsp;·&nbsp; For personal use only</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
