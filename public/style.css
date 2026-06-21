@@ -696,3 +696,67 @@ body.tiktok-mode .orb-3 { background: radial-gradient(circle, #fcee0a, transpare
   }
 }
 
+
+/* ===== WEB LOADING SCREEN ===== */
+#web-loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #05050A;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.web-loading-logo {
+  width: 120px;
+  height: 120px;
+  animation: pulseAnim 0.8s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  margin-bottom: 24px;
+}
+
+.web-loading-progress {
+  width: 160px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.web-loading-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40%;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  animation: progressAnim 1.2s infinite ease-in-out;
+}
+
+@keyframes pulseAnim {
+  from {
+    transform: scale(0.95);
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(1.05);
+    opacity: 1.0;
+  }
+}
+
+@keyframes progressAnim {
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 100%;
+  }
+}

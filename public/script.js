@@ -230,3 +230,21 @@ function downloadVideo() {
   }, 3000);
 }
 
+
+// ── Web Loading Screen Fade-out ──────────────────────────────────────────────
+window.addEventListener('load', () => {
+  const loadingScreen = document.getElementById('web-loading-screen');
+  if (loadingScreen) {
+    // Add a tiny delay to ensure a smooth transition
+    setTimeout(() => {
+      loadingScreen.style.opacity = '0';
+      loadingScreen.style.visibility = 'hidden';
+      // Remove from DOM after fade transition completes
+      setTimeout(() => {
+        if (loadingScreen.parentNode) {
+          loadingScreen.parentNode.removeChild(loadingScreen);
+        }
+      }, 500);
+    }, 200);
+  }
+});
