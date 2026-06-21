@@ -255,6 +255,76 @@ window.addEventListener('load', () => {
     const downloadZone = document.querySelector('.app-download-zone');
     if (downloadZone) {
       downloadZone.style.display = 'none';
-    }
   }
 });
+
+// ── PWA & Service Worker Logic ───────────────────────────────────────────────
+let deferredPrompt;
+const pwaPopup = document.getElementById('pwa-install-popup');
+const pwaInstallBtn = document.getElementById('pwa-install-btn');
+const pwaDismissBtn = document.getElementById('pwa-dismiss-btn');
+const pwaDescText = document.getElementById('pwa-desc-text');
+
+// 1. Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => {
+      console.warn('SW registration failed: ', err);
+    });
+  });
+}
+
+// Detect if app is already installed
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+
+// Detect iOS Safari
+const isIos = () => {
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod/.test(userAgent);
+};
+
+// 2. Handle Android / Chrome install prompt
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  
+  // Show our custom Cyberpunk popup (if not already installed)
+  if (!isStandalone) {
+    setTimeout(() => {
+      pwaPopup.style.display = 'flex';
+    }, 2000); // Wait 2s before showing to not overwhelm user
+  }
+});
+
+// 3. Handle iOS specific prompt (no automatic event available)
+if (isIos() && !isStandalone) {
+  // Wait a few seconds, then show instructions
+  setTimeout(() => {
+    pwaDescText.innerHTML = 'Install to home screen: Tap <b>Share 📤</b> below and select <b>Add to Home Screen ➕</b>';
+    pwaInstallBtn.style.display = 'none'; // iOS has no install button, just instructions
+    pwaPopup.style.display = 'flex';
+  }, 3000);
+}
+
+// 4. Button Click Handlers
+if (pwaInstallBtn) {
+  pwaInstallBtn.addEventListener('click', async () => {
+    pwaPopup.style.display = 'none';
+    if (deferredPrompt) {
+      // Show the native install prompt
+      deferredPrompt.prompt();
+      // Wait for the user to respond
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response to the install prompt: ${outcome}`);
+      deferredPrompt = null;
+    }
+  });
+}
+
+if (pwaDismissBtn) {
+  pwaDismissBtn.addEventListener('click', () => {
+    pwaPopup.style.display = 'none';
+  });
+}

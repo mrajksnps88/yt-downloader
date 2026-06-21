@@ -1,0 +1,21 @@
+{
+  "name": "Vid Downloader",
+  "short_name": "Vid Downloader",
+  "description": "Download YouTube, Instagram, and TikTok videos for free.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05050A",
+  "theme_color": "#00FFFF",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -5,7 +5,14 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+  <!-- PWA & iOS Meta Tags -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#05050A" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="VidDownloader" />
   <title>VidDownloader — Download YouTube, Instagram & TikTok Free</title>
   <meta name="description" content="Download YouTube, Instagram, and TikTok videos in HD for free. Paste any link, choose your quality, and download instantly." />
 
@@ -203,6 +210,21 @@
     <footer class="footer">
       <p>Built with ❤️ using Node.js & Express &nbsp;·&nbsp; For personal use only</p>
     </footer>
+  </div>
+
+  <!-- PWA Install Popup -->
+  <div id="pwa-install-popup" class="pwa-popup glass-card" style="display: none;">
+    <div class="pwa-content">
+      <img src="/favicon.png" alt="App Icon" class="pwa-icon">
+      <div class="pwa-text">
+        <h3 class="pwa-title">INSTALL VID DOWNLOADER</h3>
+        <p class="pwa-desc" id="pwa-desc-text">Install our app to your home screen for a seamless native experience!</p>
+      </div>
+    </div>
+    <div class="pwa-actions">
+      <button id="pwa-dismiss-btn" class="pwa-btn secondary">LATER</button>
+      <button id="pwa-install-btn" class="pwa-btn primary">INSTALL NOW</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
