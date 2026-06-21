@@ -247,4 +247,14 @@ window.addEventListener('load', () => {
       }, 500);
     }, 200);
   }
+
+  // Hide the App Download button if we are already inside the Android App (WebView)
+  // Android WebViews typically include "wv" in their user agent string.
+  const isAndroidWebView = /Android.*wv/.test(navigator.userAgent);
+  if (isAndroidWebView) {
+    const downloadZone = document.querySelector('.app-download-zone');
+    if (downloadZone) {
+      downloadZone.style.display = 'none';
+    }
+  }
 });
