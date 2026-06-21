@@ -927,3 +927,38 @@ body.tiktok-mode .orb-3 { background: radial-gradient(circle, #fcee0a, transpare
     transform: translate(-50%, 0);
   }
 }
+
+/* ===== GLITCH HOVER EFFECT ===== */
+.glitch-hover {
+  transition: all 0.1s ease;
+}
+
+.glitch-hover:hover {
+  animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  text-shadow: 2px 0 var(--accent-2), -2px 0 var(--accent);
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); text-shadow: 2px 0 var(--accent-2), -2px 0 var(--accent); }
+  20% { transform: skew(-10deg); text-shadow: -2px 0 var(--accent-2), 2px 0 var(--accent); }
+  40% { transform: skew(10deg); text-shadow: 2px 0 var(--accent-2), -2px 0 var(--accent); }
+  60% { transform: skew(-5deg); text-shadow: -2px 0 var(--accent-2), 2px 0 var(--accent); }
+  80% { transform: skew(5deg); text-shadow: 2px 0 var(--accent-2), -2px 0 var(--accent); }
+  100% { transform: skew(0deg); text-shadow: -2px 0 var(--accent-2), 2px 0 var(--accent); }
+}
+
+/* ===== TYPEWRITER BLINKING CURSOR ===== */
+.blinking-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.2em;
+  background-color: var(--accent);
+  vertical-align: middle;
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

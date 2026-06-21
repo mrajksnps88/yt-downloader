@@ -329,3 +329,27 @@ if (pwaDismissBtn) {
     pwaPopup.style.display = 'none';
   });
 }
+
+// ── Typewriter Effect ────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const taglineEl = document.getElementById('typewriter-tagline');
+  if (!taglineEl) return;
+
+  const textToType = "Download YouTube, Instagram & TikTok videos in seconds";
+  let i = 0;
+  taglineEl.innerHTML = '<span class="blinking-cursor"></span>';
+
+  function typeWriter() {
+    if (i < textToType.length) {
+      // Insert the character right before the blinking cursor
+      const cursor = taglineEl.querySelector('.blinking-cursor');
+      const charNode = document.createTextNode(textToType.charAt(i));
+      taglineEl.insertBefore(charNode, cursor);
+      i++;
+      setTimeout(typeWriter, 50); // Adjust typing speed here (ms)
+    }
+  }
+
+  // Start typing after a short delay (e.g. while the loading screen fades)
+  setTimeout(typeWriter, 1000);
+});
