@@ -255,6 +255,7 @@ window.addEventListener('load', () => {
     const downloadZone = document.querySelector('.app-download-zone');
     if (downloadZone) {
       downloadZone.style.display = 'none';
+    }
   }
 });
 
