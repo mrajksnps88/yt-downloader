@@ -760,3 +760,49 @@ body.tiktok-mode .orb-3 { background: radial-gradient(circle, #fcee0a, transpare
     left: 100%;
   }
 }
+
+/* ===== APP DOWNLOAD ZONE (CYBERPUNK) ===== */
+.app-download-zone {
+  padding: 28px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s 0.3s ease both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.app-dl-header {
+  margin-bottom: 24px;
+}
+
+.app-dl-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.app-dl-desc {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.app-dl-btn {
+  text-decoration: none;
+  display: inline-block;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--accent);
+}
+
+.app-dl-btn:hover {
+  background: rgba(0, 255, 255, 0.2);
+}
