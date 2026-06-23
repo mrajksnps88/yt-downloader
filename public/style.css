@@ -962,37 +962,3 @@ body.tiktok-mode .orb-3 { background: radial-gradient(circle, #fcee0a, transpare
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
-
-/* ===== STYLISH NAME ANIMATION ===== */
-.stylish-name-container {
-  margin-top: 15px;
-  perspective: 1000px;
-}
-
-.stylish-name {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.5rem;
-  background: linear-gradient(to right, #ff003c, #a855f7, #00f0ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  animation: elegantFloat 4s ease-in-out infinite, gradientShift 6s linear infinite;
-  text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-  transform-style: preserve-3d;
-}
-
-@keyframes elegantFloat {
-  0%, 100% {
-    transform: translateY(0) rotateX(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotateX(5deg);
-    text-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
-  }
-}
-
-@keyframes gradientShift {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
