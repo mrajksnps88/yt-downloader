@@ -353,3 +353,20 @@ window.addEventListener('DOMContentLoaded', () => {
   // Start typing after a short delay (e.g. while the loading screen fades)
   setTimeout(typeWriter, 1000);
 });
+
+// Cookie Consent Logic
+document.addEventListener("DOMContentLoaded", () => {
+  const cookieBanner = document.getElementById('cookie-banner');
+  const acceptCookiesBtn = document.getElementById('accept-cookies');
+
+  if (cookieBanner && acceptCookiesBtn) {
+    if (!localStorage.getItem('cookiesAccepted')) {
+      cookieBanner.style.display = 'flex';
+    }
+
+    acceptCookiesBtn.addEventListener('click', () => {
+      localStorage.setItem('cookiesAccepted', 'true');
+      cookieBanner.style.display = 'none';
+    });
+  }
+});
