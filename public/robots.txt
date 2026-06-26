@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yt-downloader-x11y.onrender.com/sitemap.xml
